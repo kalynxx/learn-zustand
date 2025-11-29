@@ -1,9 +1,17 @@
-import zustandLogo from "./assets/zustand.svg";
 import "./App.css";
-import { useCounterStore } from "./store";
+import zustandLogo from "./assets/zustand.svg";
+import Counter from "./components/Counter";
+import useCounterStore from "./stores/counterStore";
 
 function App() {
+  /*
+   * When accessing a store from within a react component,
+   * make sure to ONLY access the specific part of the store
+   * that you need, or else the component is going to rerender
+   * each time the entire store gets updated!
+   */
   const count = useCounterStore((state) => state.count);
+
   return (
     <>
       <a href="https://github.com/pmndrs/zustand" target="_blank">
@@ -11,16 +19,10 @@ function App() {
       </a>
       <h1>Learning Zustand</h1>
       <div className="card">
-        <h2>
-          <SomeComponent count={count} />
-        </h2>
+        <Counter count={count} />
       </div>
     </>
   );
 }
-
-const SomeComponent = ({ count }: { count: number }) => {
-  return <>{count}</>;
-};
 
 export default App;
